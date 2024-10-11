@@ -1,0 +1,16 @@
+c2ea21981606b38a03c901994e45bff4 *DESCRIPTION
+a56cabc0ef939664248286b4e11a7cc0 *LICENSE
+cc53ac8a28f8ef41a2ab41f5eb1e2b82 *NAMESPACE
+91bf5359a92e39694d4dd01f52c97d1d *NEWS.md
+e6acd4fc04636a19fa1354b63536f4b5 *R/findOptimalThreadCount.R
+9ef79c64e1dc3953e7a09a7a3c1db37c *R/globals.R
+3cec3f1160acce702263831e545efd44 *R/plot.data_table_threads_benchmark.R
+915f9510fc841814eeecc25bce4478b7 *R/print.data_table_threads_benchmark.R
+4880dc7e8b713031e94c527019ba7f26 *R/runBenchmarks.R
+981bce6f417613a22892294246302c79 *R/setThreadCount.R
+9c902ff5af274e5d2ab43bff9f625f0b *README.md
+d614509a6826a14a5465eec567a67eec *man/findOptimalThreadCount.Rd
+e91903ca5defde39c845167ec8c3d1e3 *man/plot.data_table_threads_benchmark.Rd
+9656a95b906cb91b5c1c9aa2b8bd030a *man/print.data_table_threads_benchmark.Rd
+563196196700afb1574366939322c0c4 *man/runBenchmarks.Rd
+9e8fb71b8a3e2df8d7c5e35c81719d46 *man/setThreadCount.Rd
