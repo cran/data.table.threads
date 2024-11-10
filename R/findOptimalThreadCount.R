@@ -27,15 +27,37 @@
 findOptimalThreadCount <- function(rowCount, colCount, times = 10, verbose = FALSE)
 {
   setDTthreads(0)
-  maxThreads <- getDTthreads()
-  results <- list()
+  systemThreadCount <- getDTthreads()
+  results <- vector("list", systemThreadCount)
 
-  for (threadCount in 1:maxThreads) {
+  for(threadCount in 1:systemThreadCount)
+  {
     results[[threadCount]] <- runBenchmarks(rowCount, colCount, threadCount, times, verbose)
   }
 
   results.dt <- rbindlist(results)
   seconds.dt <- results.dt[, .(threadCount, expr, min, max, median)]
+  functions <- unique(seconds.dt$expr)
+
+  seconds.dt[, `:=`(speedup = median[threadCount == 1] / median,
+                    type = "Measured"), by = expr]
+
+  maxSpeedup <- seconds.dt[, .(threadCount = threadCount[which.max(speedup)],
+                               speedup = max(speedup),
+                               type = "Ideal"), by = expr]
+
+  idealSpeedupData <- data.table(
+    expr = rep(functions, each = systemThreadCount),
+    threadCount = rep(seq(1, systemThreadCount), length(functions)),
+    speedup = rep(seq(1, systemThreadCount), length(functions)),
+    type = "Ideal"
+  )
+
+  lineData <- rbind(idealSpeedupData, seconds.dt, fill = TRUE)
+  pointData <- maxSpeedup
+
+  setattr(seconds.dt, "lineData", lineData)
+  setattr(seconds.dt, "pointData", pointData)
   setattr(seconds.dt, "class", c("data_table_threads_benchmark", class(seconds.dt)))
   seconds.dt
 }
